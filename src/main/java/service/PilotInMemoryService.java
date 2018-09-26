@@ -39,5 +39,28 @@ public class PilotInMemoryService implements PilotService {
 		}
 		return null;
 	}
+
+	@Override
+	public PilotModel deletePilotDetailById(String id) {
+		// TODO Auto-generated method stub
+		List<PilotModel> pilots = getPilotList();
+		for (int i = 0; i<pilots.size(); i++) {
+			if (pilots.get(i).getId().equals(id)) {
+				return pilots.remove(i);
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public void updateFlyHourPilotByLicenseNumber(String licenseNumber, int flyHour) {
+		// TODO Auto-generated method stub
+		List<PilotModel> pilots = getPilotList();
+		for (int i = 0; i<pilots.size(); i++) {
+			if (pilots.get(i).getLicenseNumber().equals(licenseNumber)) {
+				pilots.get(i).setFlyHour(flyHour);
+			}
+		}
+	}
 	
 }

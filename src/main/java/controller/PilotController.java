@@ -51,7 +51,7 @@ public class PilotController {
 			PilotModel archive = pilotService.getPilotDetailByLicenseNumber(licenseNumber.get());
 			
 			model.addAttribute("pilot", archive);
-			path = "view-pilot";
+			path = "viewall-pilot";
 		}
 		else {
 			path = "view-error";
@@ -65,10 +65,11 @@ public class PilotController {
 			"/pilot/update/license-number/{licenseNumber}/fly-hour", 
 			"/pilot/update/license-number/{licenseNumber}/fly-hour/{flyHour}"})
 	public String update(@PathVariable Optional<String> licenseNumber,
-			@PathVariable Optional<String> flyHour, Model model) {
+			@PathVariable Optional<Integer> flyHour, Model model) {
 		String path = "";
 		if (licenseNumber.isPresent() && flyHour.isPresent()) {
-			
+			pilotService.updateFlyHourPilotByLicenseNumber(licenseNumber.get(), flyHour.get());
+			path = "update";
 		}
 		else {
 			path = "update-error";
@@ -81,7 +82,8 @@ public class PilotController {
 	public String delete(@PathVariable Optional<String> id, Model model) {
 		String path = "";
 		if (id.isPresent()) {
-			
+			pilotService.deletePilotDetailById(id.get());
+			path = "delete";
 		}
 		else {
 			path = "delete-error";
